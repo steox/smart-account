@@ -1,0 +1,11 @@
+{
+  "name": "smart-account",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/steox/smart-account.git",
+  "author": "Sebastian <52814954+steox@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "userop": "^0.3.1"
+  }
+}
