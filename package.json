@@ -6,8 +6,8 @@
   "author": "Sebastian <52814954+steox@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "init": "ts-node scripts/init.ts",
-    "kernel": "ts-node scripts/kernel/index.ts"
+    "init": "ts-node script/init.ts",
+    "kernel": "ts-node script/kernel/index.ts"
   },
   "dependencies": {
     "@inquirer/prompts": "^2.0.0",
