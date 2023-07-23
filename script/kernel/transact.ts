@@ -4,6 +4,8 @@ import { CLIOpts, createCalls } from "../../src";
 // @ts-ignore
 import config from "../../config.json";
 
+import { Kernel } from "../../src/builder/kernel";
+
 export default async function main(opts: CLIOpts): Promise<void> {
   const calls = await createCalls(
     new ethers.providers.JsonRpcProvider(config.rpcUrl)
@@ -16,7 +18,12 @@ export default async function main(opts: CLIOpts): Promise<void> {
         config.paymaster.context
       )
     : undefined;
-  const kernel = await Presets.Builder.Kernel.init(
+  // const kernel = await Presets.Builder.Kernel.init(
+  //   new ethers.Wallet(config.signingKey),
+  //   config.rpcUrl,
+  //   { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc }
+  // );
+  const kernel = await Kernel.init(
     new ethers.Wallet(config.signingKey),
     config.rpcUrl,
     { paymasterMiddleware, overrideBundlerRpc: opts.overrideBundlerRpc }
@@ -25,6 +32,7 @@ export default async function main(opts: CLIOpts): Promise<void> {
     overrideBundlerRpc: opts.overrideBundlerRpc,
   });
 
+  console.log(kernel.execute(calls[0]).getVerificationGasLimit().toString());
   const res = await client.sendUserOperation(
     calls.length === 1 ? kernel.execute(calls[0]) : kernel.executeBatch(calls),
     {
@@ -32,6 +40,7 @@ export default async function main(opts: CLIOpts): Promise<void> {
       onBuild: (op) => console.log("Signed UserOperation:", op),
     }
   );
+
   console.log(`UserOpHash: ${res.userOpHash}`);
 
   console.log("Waiting for transaction...");

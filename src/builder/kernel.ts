@@ -128,6 +128,14 @@ export class Kernel extends UserOperationBuilder {
       ? base.useMiddleware(opts.paymasterMiddleware)
       : base.useMiddleware(estimateUserOperationGas(instance.provider));
 
+    // manual
+    console.log(base.getVerificationGasLimit().toString());
+    console.log(withPM.getVerificationGasLimit().toString());
+    instance.setVerificationGasLimit(1500000);
+    base.setVerificationGasLimit(1500000);
+    withPM.setVerificationGasLimit(1500000);
+    console.log(base.getVerificationGasLimit().toString());
+
     return withPM
       .useMiddleware(EOASignature(instance.signer))
       .useMiddleware(instance.sudoMode);
