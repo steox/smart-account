@@ -32,7 +32,6 @@ export default async function main(opts: CLIOpts): Promise<void> {
     overrideBundlerRpc: opts.overrideBundlerRpc,
   });
 
-  console.log(kernel.execute(calls[0]).getVerificationGasLimit().toString());
   const res = await client.sendUserOperation(
     calls.length === 1 ? kernel.execute(calls[0]) : kernel.executeBatch(calls),
     {

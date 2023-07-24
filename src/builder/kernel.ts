@@ -4,9 +4,10 @@ import { UserOperationBuilder } from "userop";
 import { BundlerJsonRpcProvider } from "userop";
 import {
   EOASignature,
-  estimateUserOperationGas,
+  //   estimateUserOperationGas,
   getGasPrice,
 } from "userop/dist/preset/middleware";
+import { estimateUserOperationGas } from "../middleware";
 import {
   EntryPoint,
   EntryPoint__factory,
@@ -127,14 +128,6 @@ export class Kernel extends UserOperationBuilder {
     const withPM = opts?.paymasterMiddleware
       ? base.useMiddleware(opts.paymasterMiddleware)
       : base.useMiddleware(estimateUserOperationGas(instance.provider));
-
-    // manual
-    console.log(base.getVerificationGasLimit().toString());
-    console.log(withPM.getVerificationGasLimit().toString());
-    instance.setVerificationGasLimit(1500000);
-    base.setVerificationGasLimit(1500000);
-    withPM.setVerificationGasLimit(1500000);
-    console.log(base.getVerificationGasLimit().toString());
 
     return withPM
       .useMiddleware(EOASignature(instance.signer))
