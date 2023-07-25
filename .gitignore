@@ -117,3 +117,6 @@ dist
 
 # Config file
 config*.json
+
+# Typechain
+typechain

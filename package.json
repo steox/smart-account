@@ -7,13 +7,19 @@
   "license": "MIT",
   "scripts": {
     "init": "ts-node script/init.ts",
-    "kernel": "ts-node script/kernel/index.ts"
+    "kernel": "ts-node script/kernel/index.ts",
+    "typechain:generate": "yarn typechain --target=ethers-v5 ./out/**/*.json --out-dir=./typechain",
+    "build": "forge build && yarn typechain:generate"
   },
   "dependencies": {
     "@inquirer/prompts": "^2.0.0",
+    "@openzeppelin/contracts": "^4.9.2",
+    "@openzeppelin/contracts-upgradeable": "^4.9.2",
+    "@typechain/ethers-v5": "^11.1.1",
     "axios": "^1.2.3",
     "commander": "^10.0.0",
     "ethers": "^5.7.2",
+    "typechain": "^8.3.1",
     "userop": "^0.3.1"
   },
   "devDependencies": {
@@ -21,9 +27,12 @@
     "@types/prettier": "^2.7.1",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
+    "account-abstraction": "git+https://github.com/eth-infinitism/account-abstraction",
+    "ds-test": "git+https://github.com/dapphub/ds-test/",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "forge-std": "git+https://github.com/foundry-rs/forge-std",
     "prettier": "^2.8.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
